@@ -1,0 +1,935 @@
+
+<!doctype html>
+<html lang="es" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="A language model's factual thought splits into reusable parts — the thing and the question. We pull the parts out, put them back together, and the model speaks the answer. Plain-language, interactive, EN/ES.">
+      
+      
+        <meta name="author" content="Matias Podeley">
+      
+      
+        <link rel="canonical" href="https://mpodeley.github.io/assembled-thought/es/explained/">
+      
+      
+        <link rel="prev" href="../">
+      
+      
+        <link rel="next" href="../assembly/">
+      
+      
+        
+          <link rel="alternate" href="../../explained/" hreflang="en">
+        
+          <link rel="alternate" href="./" hreflang="es">
+        
+      
+      
+      <link rel="icon" href="../../assets/favicon.svg">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+    
+    
+      
+        <title>Explicado fácil - The Assembled Thought</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../stylesheets/extra.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="The Assembled Thought">
+  <meta property="og:description" content="A language model's factual thought splits into reusable parts — the thing and the question. We pull the parts out, put them back together, and the model speaks the answer.">
+  <meta property="og:image" content="https://mpodeley.github.io/assembled-thought/assets/og.png">
+  <meta property="og:url" content="https://mpodeley.github.io/assembled-thought/">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="The Assembled Thought">
+  <meta name="twitter:description" content="Assemble a language model's thought from averaged parts — and hear it speak the answer. Interactive, plain-language, EN/ES.">
+  <meta name="twitter:image" content="https://mpodeley.github.io/assembled-thought/assets/og.png">
+
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#el-paper-explicado-facil" class="md-skip">
+          Saltar a contenido
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+  
+
+<header class="md-header md-header--shadow" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Cabecera">
+    <a href="../" title="The Assembled Thought" class="md-header__button md-logo" aria-label="The Assembled Thought" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            The Assembled Thought
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Explicado fácil
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: light)" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m17.75 4.09-2.53 1.94.91 3.06-2.63-1.81-2.63 1.81.91-3.06-2.53-1.94L12.44 4l1.06-3 1.06 3zm3.5 6.91-1.64 1.25.59 1.98-1.7-1.17-1.7 1.17.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95zm-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14.4-.4.82-.76 1.27-1.08.75-.53 1.93.36 1.85 1.19-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82-2.81 3.14-2.7 7.96.31 10.98 3.02 3.01 7.84 3.12 10.98.31"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="(prefers-color-scheme: dark)" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3m0-7 2.39 3.42C13.65 5.15 12.84 5 12 5s-1.65.15-2.39.42zM3.34 7l4.16-.35A7.2 7.2 0 0 0 5.94 8.5c-.44.74-.69 1.5-.83 2.29zm.02 10 1.76-3.77a7.131 7.131 0 0 0 2.38 4.14zM20.65 7l-1.77 3.79a7.02 7.02 0 0 0-2.38-4.15zm-.01 10-4.14.36c.59-.51 1.12-1.14 1.54-1.86.42-.73.69-1.5.83-2.29zM12 22l-2.41-3.44c.74.27 1.55.44 2.41.44.82 0 1.63-.17 2.37-.44z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+    
+      <div class="md-header__option">
+  <div class="md-select">
+    
+    <button class="md-header__button md-icon" aria-label="Seleccionar idioma">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="m12.87 15.07-2.54-2.51.03-.03A17.5 17.5 0 0 0 14.07 6H17V4h-7V2H8v2H1v2h11.17C11.5 7.92 10.44 9.75 9 11.35 8.07 10.32 7.3 9.19 6.69 8h-2c.73 1.63 1.73 3.17 2.98 4.56l-5.09 5.02L4 19l5-5 3.11 3.11zM18.5 10h-2L12 22h2l1.12-3h4.75L21 22h2zm-2.62 7 1.62-4.33L19.12 17z"/></svg>
+    </button>
+    <div class="md-select__inner">
+      <ul class="md-select__list">
+        
+          <li class="md-select__item">
+            <a href="../../explained/" hreflang="en" class="md-select__link">
+              English
+            </a>
+          </li>
+        
+          <li class="md-select__item">
+            <a href="./" hreflang="es" class="md-select__link">
+              Español
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</div>
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Búsqueda" placeholder="Búsqueda" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Buscar">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Limpiar" aria-label="Limpiar" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Inicializando búsqueda
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+      <div class="md-header__source">
+        <a href="https://github.com/mpodeley/jspace-qwen" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    code · jspace-qwen
+  </div>
+</a>
+      </div>
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--integrated" aria-label="Navegación" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../" title="The Assembled Thought" class="md-nav__button md-logo" aria-label="The Assembled Thought" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    The Assembled Thought
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/mpodeley/jspace-qwen" title="Ir al repositorio" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    code · jspace-qwen
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Inicio
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explicado fácil
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Explicado fácil
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Tabla de contenidos">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Tabla de contenidos
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#primero-que-es-un-modelo-de-lenguaje" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Primero: ¿qué es un modelo de lenguaje?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#la-pregunta-del-paper" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        La pregunta del paper
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-encontramos-son-dos-piezas-y-se-pueden-operar" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que encontramos: son dos piezas, y se pueden operar
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#las-flechas-son-de-verdad-no-un-truco-del-ejemplo" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Las flechas son de verdad, no un truco del ejemplo
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#el-detalle-mas-lindo-la-pregunta-no-es-la-respuesta" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El detalle más lindo: la pregunta no es la respuesta
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-no-funciona-asi-y-por-que-es-igual-de-interesante" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que NO funciona así (y por qué es igual de interesante)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#y-esto-para-que-sirve" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ¿Y esto para qué sirve?
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lo-que-este-trabajo-no-dice" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Lo que este trabajo NO dice
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Pruébalo
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Pruébalo
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../assembly/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Ensamblar un pensamiento
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../geometry/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    La geometría
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../evidence/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Evidencia y controles
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../paper/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    El paper
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../future/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Qué sigue
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="https://github.com/mpodeley/jspace-qwen" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Código y reproducibilidad
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="el-paper-explicado-facil">El paper, explicado fácil</h1>
+<p><em>Para cualquier persona curiosa, sin matemática ni jerga. Simple, pero sin mentir.</em></p>
+<h2 id="primero-que-es-un-modelo-de-lenguaje">Primero: ¿qué es un modelo de lenguaje?</h2>
+<p>ChatGPT, Gemini y compañía son programas entrenados para una sola cosa: <strong>continuar texto</strong>.
+Leen millones de libros y páginas web, y aprenden a predecir qué palabra viene después. De ese
+entrenamiento sale algo sorprendente: para continuar bien la frase <em>"La capital de Italia es…"</em>,
+el programa necesita, de alguna manera, <em>saber</em> cuál es la capital de Italia.</p>
+<p>Por dentro no hay palabras: hay números. En cada instante, el "estado mental" del modelo es una
+lista enorme de números — miles de ellos. Podés imaginarlo como <strong>un punto en un mapa gigante</strong>:
+cada pensamiento posible es un lugar distinto del mapa.</p>
+<h2 id="la-pregunta-del-paper">La pregunta del paper</h2>
+<p>Cuando el modelo procesa <em>"la capital de Italia"</em>, ¿cómo guarda ese pensamiento?</p>
+<ul>
+<li><strong>Opción A:</strong> como un bloque indivisible — "capital-de-Italia" es una sola cosa, distinta e
+  independiente de "moneda-de-Italia" o "capital-de-Francia".</li>
+<li><strong>Opción B:</strong> en <strong>dos piezas separadas</strong> — por un lado <em>la cosa</em> (Italia), por otro <em>la
+  pregunta que se le hace</em> (¿capital de…?).</li>
+</ul>
+<p>Parece un detalle técnico, pero es la diferencia entre memorizar cada combinación por separado
+y tener un sistema con partes reutilizables — como la diferencia entre memorizar "2+3=5,
+2+4=6, 2+5=7…" y saber sumar.</p>
+<h2 id="lo-que-encontramos-son-dos-piezas-y-se-pueden-operar">Lo que encontramos: son dos piezas, y se pueden operar</h2>
+<p>La respuesta es la <strong>Opción B</strong>, y lo sabemos porque hicimos algo mejor que mirar: <strong>operamos</strong>.</p>
+<p>En el mapa de pensamientos del modelo, cada pregunta — <em>¿capital de…?</em>, <em>¿moneda de…?</em>,
+<em>¿idioma de…?</em> — resulta ser <strong>una flecha</strong>: una dirección concreta en la que se desplaza el
+punto. Y esas flechas se pueden manipular:</p>
+<ul>
+<li><strong>El experimento estrella:</strong> mientras el modelo piensa <em>"la moneda de Italia es…"</em>, le
+  restamos la flecha <em>moneda-de</em> y le sumamos la flecha <em>capital-de</em> — sin tocar la palabra
+  "Italia" ni nada más. Su preferencia se invierte por completo: deja de inclinarse por
+  <em>"euro"</em> y se inclina por <em>"Roma"</em>. Funciona con <strong>los 20 pares de preguntas que probamos,
+  en 3 modelos distintos</strong> (incluso de empresas diferentes). Y si en lugar de la flecha
+  correcta sumamos una flecha aleatoria del mismo tamaño, <strong>no pasa nada</strong> — no es que
+  cualquier empujón rompa al modelo.</li>
+<li><strong>El trasplante:</strong> mejor todavía — tomamos el estado interno completo de un modelo pensando
+  <em>"la capital de Italia"</em> y lo trasplantamos dentro del mismo modelo mientras piensa <em>"la
+  moneda de Italia"</em>. El modelo <strong>responde "Roma"</strong>: cambia su respuesta real, no solo su
+  preferencia.</li>
+<li><strong>El ensamblaje (el resultado nuevo):</strong> lo mejor de todo — ni siquiera hace falta copiar ese
+  estado. Lo <strong>armamos con tres ingredientes promediados</strong> — una base genérica, una parte
+  "Italia" y una parte "capital-de" —, escribimos el pensamiento ensamblado en un solo punto, y
+  el modelo responde <strong>"Roma" tan seguido como responde cualquier cosa normalmente</strong> (52%,
+  cuando su propia precisión es 53%). Si en cambio ponemos la parte "Francia", responde <em>París</em>.
+  El pensamiento de verdad está hecho de partes, y las partes alcanzan. (Que antes las flechas
+  no lo hicieran <em>hablar</em> resultó ser una sobredosis: con un empujón suave — de la fuerza justa —
+  el empujón también lo hace hablar. Empujá 40× más fuerte y balbucea en loops — <em>"dollar dollar
+  dollar…"</em> — pero incluso ahí, forzado a elegir entre las respuestas posibles, acierta el <strong>80%
+  de las veces</strong>. La sobredosis destruye la fluidez, no la información.)</li>
+</ul>
+<h2 id="las-flechas-son-de-verdad-no-un-truco-del-ejemplo">Las flechas son de verdad, no un truco del ejemplo</h2>
+<p>Tres controles para convencer al escéptico:</p>
+<ol>
+<li><strong>Países nunca vistos.</strong> Construimos la flecha <em>capital-de</em> usando solo 6 países… y funciona
+   perfectamente sobre los otros 6. No memorizó ejemplos: capturó la <em>operación</em>.</li>
+<li><strong>Otras palabras.</strong> Construimos la flecha con frases tipo <em>"la moneda de Francia"</em> y la
+   probamos sobre <em>"el dinero que se usa en Francia"</em> — otra redacción, mismas flechas, mismo
+   resultado. La flecha representa <strong>la pregunta</strong>, no las palabras con que se hace.</li>
+<li><strong>Otro modelo.</strong> Repetimos toda la receta en un modelo de otra empresa, con otro
+   entrenamiento y otro diccionario interno. Todo se repite.</li>
+</ol>
+<h2 id="el-detalle-mas-lindo-la-pregunta-no-es-la-respuesta">El detalle más lindo: la pregunta no es la respuesta</h2>
+<p><em>"¿Qué idioma se habla en Italia?"</em> y <em>"¿Cómo se le dice a alguien de Italia?"</em> tienen la
+<strong>misma respuesta</strong>: "italiano". Si el modelo solo guardara respuestas, esos dos pensamientos
+serían idénticos por dentro. <strong>No lo son</strong>: son dos flechas distintas. El modelo separa <em>qué le
+están preguntando</em> de <em>qué palabra va a decir</em> — como vos distinguís la pregunta de la
+respuesta aunque dos preguntas distintas terminen en la misma palabra.</p>
+<p>Los lingüistas tienen un nombre viejo para esta estructura: <strong>declinación</strong>. En latín, <em>rosa</em> y
+<em>rosam</em> son la misma flor cumpliendo roles distintos en la oración — una terminación marca el
+rol sin cambiar la cosa. El modelo hace algo parecido: "Italia" es la raíz, y <em>capital-de</em> es
+la terminación que marca qué rol cumple. Hasta el fenómeno de que dos roles compartan una misma
+forma superficial (como acá "italiano") tiene nombre en gramática: <em>sincretismo</em>.</p>
+<h2 id="lo-que-no-funciona-asi-y-por-que-es-igual-de-interesante">Lo que NO funciona así (y por qué es igual de interesante)</h2>
+<p>Probamos la misma receta con la aritmética: ¿existe una flecha <em>sumar</em>, una flecha
+<em>multiplicar</em>? <strong>No.</strong> Las "flechas" de las operaciones matemáticas salen enredadas con los
+números a los que se aplican y no se pueden trasplantar. Esto encaja con lo que otros
+investigadores venían encontrando: estos modelos no hacen matemática con reglas limpias sino
+con una <strong>bolsa de trucos memorizados</strong>. Que el método distinga dónde hay estructura limpia y
+dónde no, es justamente lo que lo hace creíble.</p>
+<h2 id="y-esto-para-que-sirve">¿Y esto para qué sirve?</h2>
+<p>Estos sistemas se usan cada vez más y casi nadie sabe <strong>cómo</strong> deciden lo que dicen. Este tipo
+de trabajo — se llama <em>interpretabilidad</em> — es abrir el capó: entender las piezas internas es
+el primer paso para poder auditarlas, corregirlas y confiar (o desconfiar) con fundamento.
+Acá mostramos que, al menos para preguntas sobre hechos, hay piezas internas con estructura
+clara: una parte para la cosa, una parte para la pregunta, y se pueden separar y trasplantar.</p>
+<h2 id="lo-que-este-trabajo-no-dice">Lo que este trabajo NO dice</h2>
+<ul>
+<li>No dice que el modelo "entienda" ni que "piense" como una persona. Hablamos de geometría:
+  puntos y flechas en un espacio de números.</li>
+<li>Probamos 5 tipos de pregunta, en inglés, sobre 12 países, en 3 modelos de tamaño mediano.
+  El mundo es más grande que eso, y el paper lo dice.</li>
+<li>Empujar las flechas tiene costo: mientras la operación cambia la pregunta con precisión,
+  también perturba otras cosas alrededor. Medimos y reportamos ese costo también.</li>
+</ul>
+<hr />
+<p><strong>¿Querés verlo con tus propios ojos?</strong> El <a href="../assembly/">explorador interactivo</a> te deja mover
+las flechas vos misma/o y ver cómo cambia la respuesta. Los detalles completos, con todos los
+números y controles, están en el <a href="../../assets/paper.pdf">paper</a> y en
+<a href="../evidence/">evidencia y controles</a>.</p>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Volver al principio
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+    
+      
+      <nav class="md-footer__inner md-grid" aria-label="Pie" >
+        
+          
+          <a href="../" class="md-footer__link md-footer__link--prev" aria-label="Anterior: Inicio">
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+            </div>
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Anterior
+              </span>
+              <div class="md-ellipsis">
+                Inicio
+              </div>
+            </div>
+          </a>
+        
+        
+          
+          <a href="../assembly/" class="md-footer__link md-footer__link--next" aria-label="Siguiente: Ensamblar un pensamiento">
+            <div class="md-footer__title">
+              <span class="md-footer__direction">
+                Siguiente
+              </span>
+              <div class="md-ellipsis">
+                Ensamblar un pensamiento
+              </div>
+            </div>
+            <div class="md-footer__button md-icon">
+              
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.sections", "navigation.top", "navigation.footer", "content.code.copy", "toc.integrate"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copiado al portapapeles", "clipboard.copy": "Copiar al portapapeles", "search.result.more.one": "1 m\u00e1s en esta p\u00e1gina", "search.result.more.other": "# m\u00e1s en esta p\u00e1gina", "search.result.none": "No se encontraron documentos", "search.result.one": "1 documento encontrado", "search.result.other": "# documentos encontrados", "search.result.placeholder": "Teclee para comenzar b\u00fasqueda", "search.result.term.missing": "Falta", "select.version": "Seleccionar versi\u00f3n"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>

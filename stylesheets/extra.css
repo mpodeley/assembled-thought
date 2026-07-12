@@ -1,0 +1,59 @@
+/* hero + stat tiles for the landing page (light & dark via Material vars) */
+.hero-sub {
+  font-size: 1.05rem;
+  color: var(--md-default-fg-color--light);
+  margin: 0.2rem 0 1.2rem;
+}
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  gap: 0.8rem;
+  margin: 1.2rem 0 1.4rem;
+}
+.stat {
+  border: 1px solid var(--md-default-fg-color--lightest);
+  border-radius: 0.6rem;
+  padding: 0.9rem 1rem 0.8rem;
+  background: var(--md-code-bg-color);
+}
+.stat .n {
+  display: block;
+  font-size: 1.55rem;
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--md-typeset-a-color);
+  font-variant-numeric: tabular-nums;
+}
+.stat .d {
+  display: block;
+  font-size: 0.72rem;
+  color: var(--md-default-fg-color--light);
+  margin-top: 0.25rem;
+  line-height: 1.35;
+}
+.hero-buttons { margin: 0.6rem 0 1.4rem; }
+.hero-buttons .md-button { margin: 0 0.45rem 0.55rem 0; }
+.hero-gif img { width: 100%; border-radius: 0.6rem; }
+
+/* --- assembled-thought additions ------------------------------------------ */
+.hero {
+  padding: 1.6rem 0 0.4rem;
+}
+.hero h1 {
+  font-size: 2.1rem;
+  line-height: 1.15;
+  margin-bottom: 0.4rem;
+  background: linear-gradient(90deg,
+    color-mix(in srgb, #4EA8DE 75%, var(--md-typeset-color)),
+    color-mix(in srgb, #FF7B54 75%, var(--md-typeset-color)));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.stat .n.accent-blue   { color: #4EA8DE; }
+.stat .n.accent-orange { color: #FF7B54; }
+.stat .n.accent-green  { color: #43C59E; }
+.stat .n.accent-gold   { color: #F2C14E; }
+@media (max-width: 480px) {
+  .hero h1 { font-size: 1.6rem; }
+}
