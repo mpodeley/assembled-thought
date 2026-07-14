@@ -69,6 +69,7 @@ plugins:
             Evidence & controls: Evidencia y controles
             The paper: El paper
             What's next: Qué sigue
+            Lab notes: Notas de laboratorio
             Code & reproducibility: Código y reproducibilidad
 
 nav:
@@ -80,4 +81,5 @@ nav:
   - Evidence & controls: evidence.md
   - The paper: paper.md
   - What's next: future.md
+  - Lab notes: lab.md
   - Code & reproducibility: https://github.com/mpodeley/jspace-qwen
