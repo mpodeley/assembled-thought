@@ -57,4 +57,5 @@ Compositional Sufficiency* — [PDF](assets/paper.pdf) · [abstract y BibTeX](pa
 [código y reproducibilidad](https://github.com/mpodeley/jspace-qwen) ·
 [qué sigue](future.md)
 
-Matias Podeley · investigador independiente · <mpodeley@gmail.com> · licencia MIT
+Matias Podeley · investigador independiente · <mpodeley@gmail.com> · licencia MIT ·
+aprendé el campo en español: [Interpretabilidad Mecanicista](https://mpodeley.github.io/interpretabilidad-mecanicista/)

@@ -9,7 +9,8 @@ Live: **https://mpodeley.github.io/assembled-thought/**
 
 The code, experiments, and reproducibility home is
 [**jspace-qwen**](https://github.com/mpodeley/jspace-qwen) — every number on this site
-regenerates from artifacts there.
+regenerates from artifacts there. To learn the field in Spanish, see
+[**Interpretabilidad Mecanicista**](https://mpodeley.github.io/interpretabilidad-mecanicista/).
 
 ## Build & deploy
 
