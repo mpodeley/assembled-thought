@@ -43,6 +43,13 @@
         <xhtml:link rel="alternate" hreflang="es" href="https://mpodeley.github.io/assembled-thought/es/geometry/"/>
     </url>
     <url>
+        <loc>https://mpodeley.github.io/assembled-thought/lab/</loc>
+        <lastmod>2026-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="en" href="https://mpodeley.github.io/assembled-thought/lab/"/>
+        <xhtml:link rel="alternate" hreflang="es" href="https://mpodeley.github.io/assembled-thought/es/lab/"/>
+    </url>
+    <url>
         <loc>https://mpodeley.github.io/assembled-thought/paper/</loc>
         <lastmod>2026-07-14</lastmod>
         <changefreq>daily</changefreq>
@@ -90,6 +97,13 @@
         <changefreq>daily</changefreq>
         <xhtml:link rel="alternate" hreflang="es" href="https://mpodeley.github.io/assembled-thought/es/geometry/"/>
         <xhtml:link rel="alternate" hreflang="en" href="https://mpodeley.github.io/assembled-thought/geometry/"/>
+    </url>
+    <url>
+        <loc>https://mpodeley.github.io/assembled-thought/es/lab/</loc>
+        <lastmod>2026-07-14</lastmod>
+        <changefreq>daily</changefreq>
+        <xhtml:link rel="alternate" hreflang="es" href="https://mpodeley.github.io/assembled-thought/es/lab/"/>
+        <xhtml:link rel="alternate" hreflang="en" href="https://mpodeley.github.io/assembled-thought/lab/"/>
     </url>
     <url>
         <loc>https://mpodeley.github.io/assembled-thought/es/paper/</loc>
