@@ -99,6 +99,7 @@
     <button class="tab on" data-scene="0">1 · Declension</button>
     <button class="tab" data-scene="1">2 · Injection</button>
     <button class="tab" data-scene="2">3 · Syncretism</button>
+    <button class="tab" data-scene="3">4 · The lattice</button>
   </div>
 
   <div class="stage"><canvas id="cv"></canvas></div>
@@ -126,6 +127,17 @@
   <div class="ctl hide" data-ctl="2">
     <button class="act" id="des2">build the pure desinence (language − demonym)</button>
     <button class="act" id="reset2" style="background:#1f2127;color:var(--ink)">reset</button>
+  </div>
+
+  <!-- Scene 3 controls -->
+  <div class="ctl hide" data-ctl="3">
+    <label>country token</label>
+    <input id="s3" type="range" min="0" max="1" step="0.001" value="0">
+    <label>query token</label>
+    <label class="toggle"><input type="checkbox" id="real3" checked> real states</label>
+    <label class="toggle"><input type="checkbox" id="inter3" checked> interaction</label>
+    <label class="toggle"><input type="checkbox" id="perm3"> <b style="color:var(--ink)">permute
+      the labels</b></label>
   </div>
 
   <p class="cap" id="cap"></p>
@@ -303,6 +315,125 @@ function drawScene2(){
   ctx.fillText("pure desinence installs the relation on a "+D.desinence.other+" prompt", W/2, H-6);
 }
 
+// ================= scene 3: the lattice =================
+// The factorization is recomputed HERE, in the browser, from the point cloud alone.
+// That is exact, not an approximation: the 2-D map is affine and mu IS the mean, so
+// projecting a mean equals the mean of the projections. Checked against the values
+// op_geometry_dump exported from the 2048-d states: case2d matches `centroids` to
+// 0.0000 and stem2d to 0.005 (the exported copy is rounded to 2dp).
+// It also means we can refactorize under ANY labelling, live -- which is the point.
+function mulberry(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; let t=Math.imul(a^a>>>15,1|a);
+  t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+function shuffled(arr, rnd){ const a=arr.slice();
+  for(let i=a.length-1;i>0;i--){ const j=Math.floor(rnd()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; }
+  return a; }
+
+const NPT = D.cloud_query.length;                       // 60
+const trueO = [], trueK = [];
+for(let i=0;i<NPT;i++){ trueO.push(Math.floor(i/nOp)); trueK.push(i%nOp); }
+// One fixed draw, so the null is the same every time anyone opens the page.
+const permRnd = mulberry(7);
+const permO = shuffled(trueO, permRnd), permK = shuffled(trueK, permRnd);
+let latF = null;
+
+function factorize(t, oLab, kLab){
+  const pts=[]; for(let i=0;i<NPT;i++) pts.push(ptAt(i,t));
+  let mx=0,my=0; for(const p of pts){ mx+=p[0]; my+=p[1]; } mx/=NPT; my/=NPT;
+  const groupMeans=(lab,count)=>{
+    const gx=new Array(count).fill(0), gy=new Array(count).fill(0), n=new Array(count).fill(0);
+    for(let i=0;i<NPT;i++){ gx[lab[i]]+=pts[i][0]; gy[lab[i]]+=pts[i][1]; n[lab[i]]++; }
+    return gx.map((v,j)=> n[j] ? [v/n[j]-mx, gy[j]/n[j]-my] : [0,0]);
+  };
+  const stem=groupMeans(oLab, LANDS.length), cas=groupMeans(kLab, nOp);
+  // sums of squares, in this projection
+  let ssTot=0, ssInt=0;
+  for(let i=0;i<NPT;i++){
+    const ax=mx+stem[oLab[i]][0]+cas[kLab[i]][0], ay=my+stem[oLab[i]][1]+cas[kLab[i]][1];
+    ssInt += (pts[i][0]-ax)**2 + (pts[i][1]-ay)**2;
+    ssTot += (pts[i][0]-mx)**2 + (pts[i][1]-my)**2;
+  }
+  let ssStem=0, ssCase=0;
+  for(const s of stem) ssStem += nOp*(s[0]**2+s[1]**2);
+  for(const c of cas)  ssCase += LANDS.length*(c[0]**2+c[1]**2);
+  // mean |real - lattice|: the residual the permutation toggle moves
+  let resid=0;
+  for(let i=0;i<NPT;i++){
+    const ax=mx+stem[oLab[i]][0]+cas[kLab[i]][0], ay=my+stem[oLab[i]][1]+cas[kLab[i]][1];
+    resid += Math.hypot(pts[i][0]-ax, pts[i][1]-ay);
+  }
+  return {mu:[mx,my], stem, cas, pts, resid:resid/NPT,
+          share:{stem:ssStem/ssTot, case:ssCase/ssTot, inter:ssInt/ssTot}};
+}
+
+let lat={t:0, perm:false, real:true, inter:true};   // opens at the country token: see below
+const node = (F,o,k) => [F.mu[0]+F.stem[o][0]+F.cas[k][0], F.mu[1]+F.stem[o][1]+F.cas[k][1]];
+// the two endpoints are constants; the caption reads them every frame
+const LAT_END = {query: factorize(1,trueO,trueK), country: factorize(0,trueO,trueK)};
+
+// Scene 3 fits each read position on its own and lerps the fit, because the two
+// clouds differ in scale by ~4x: sharing one frame (as scenes 0-2 do, so the morph
+// reads as one motion) leaves the country lattice in a corner, unreadable.
+function fitTo(pts, padPx){
+  let x0=Infinity,x1=-Infinity,y0=Infinity,y1=-Infinity;
+  for(const p of pts){ x0=Math.min(x0,p[0]); x1=Math.max(x1,p[0]);
+                       y0=Math.min(y0,p[1]); y1=Math.max(y1,p[1]); }
+  return {x0,x1,y0,y1};
+}
+const LAT_BOX = {
+  query:   fitTo(D.cloud_query.map(p=>[p.x,p.y])),
+  country: fitTo(D.cloud_country.map(p=>[p.x,p.y]))
+};
+function latTX(t){
+  const a=LAT_BOX.country, b=LAT_BOX.query, pad=64;
+  const x0=lerp(a.x0,b.x0,t), x1=lerp(a.x1,b.x1,t);
+  const y0=lerp(a.y0,b.y0,t), y1=lerp(a.y1,b.y1,t);
+  const s=Math.min((W-2*pad)/((x1-x0)||1), (H-2*pad-24)/((y1-y0)||1));
+  return {s, ox:W/2-((x0+x1)/2)*s, oy:(H-24)/2+((y0+y1)/2)*s};
+}
+let LTX=null;
+const lx = x => LTX.ox + x*LTX.s;
+const ly = y => LTX.oy - y*LTX.s;
+
+function drawScene3(){
+  const oLab = lat.perm ? permO : trueO, kLab = lat.perm ? permK : trueK;
+  const F = factorize(lat.t, oLab, kLab);
+  latF = F;
+  LTX = latTX(lat.t);
+
+  // The lattice: every "row" (one stem, five cases) is a TRANSLATE of every other,
+  // because mu + stem[o] + case[k] is a Minkowski sum. Perfect additivity is a grid
+  // of parallelograms; that is what additivity LOOKS like.
+  ctx.strokeStyle="rgba(154,160,171,.30)"; ctx.lineWidth=0.9;
+  for(let o=0;o<LANDS.length;o++){
+    ctx.beginPath();
+    for(let k=0;k<nOp;k++){ const [x,y]=node(F,o,k);
+      k?ctx.lineTo(lx(x),ly(y)):ctx.moveTo(lx(x),ly(y)); }
+    ctx.stroke();
+  }
+  ctx.strokeStyle="rgba(154,160,171,.20)";
+  for(let k=0;k<nOp;k++){
+    ctx.beginPath();
+    for(let o=0;o<LANDS.length;o++){ const [x,y]=node(F,o,k);
+      o?ctx.lineTo(lx(x),ly(y)):ctx.moveTo(lx(x),ly(y)); }
+    ctx.stroke();
+  }
+  // lattice nodes (the additive prediction)
+  for(let o=0;o<LANDS.length;o++) for(let k=0;k<nOp;k++){
+    const [x,y]=node(F,o,k);
+    ctx.lineWidth=1.2; ctx.strokeStyle=col(OPS[k]); ctx.globalAlpha=.85;
+    ctx.beginPath(); ctx.arc(lx(x),ly(y),3.1,0,7); ctx.stroke(); ctx.globalAlpha=1;
+  }
+  // the real states, and the gap between them and the lattice = the interaction term
+  if(lat.real) for(let i=0;i<NPT;i++){
+    const p=F.pts[i], [ax,ay]=node(F,oLab[i],kLab[i]);
+    if(lat.inter){ ctx.strokeStyle="rgba(244,244,242,.34)"; ctx.lineWidth=1;
+      ctx.beginPath(); ctx.moveTo(lx(ax),ly(ay)); ctx.lineTo(lx(p[0]),ly(p[1])); ctx.stroke(); }
+    dot(lx(p[0]),ly(p[1]),4.2,col(OPS[kLab[i]]),.95);
+  }
+  label(lx((X0+X1)/2), H-22, lat.t<0.5?"country token":"query token", "#9aa0ab", 14);
+  if(lat.perm) label(lx((X0+X1)/2), 22, "labels permuted — the lattice is gone", "#FF7B54", 15);
+}
+
 // ================= loop =================
 function frame(now){
   step(now);
@@ -310,7 +441,9 @@ function frame(now){
     document.getElementById("s0").value=s0; }
   resizeIfNeeded();
   clear();
-  if(scene===0) drawScene0(); else if(scene===1) drawScene1(); else drawScene2();
+  if(scene===0) drawScene0(); else if(scene===1) drawScene1();
+  else if(scene===2) drawScene2(); else drawScene3();
+  if(scene===3) setCap();                     // residual/shares change as you drag
   requestAnimationFrame(frame);
 }
 let lastW=0,lastH=0;
@@ -335,7 +468,39 @@ const CAPS=[
        not +1). Build a <b>pure desinence</b> from exactly the pairs where they share the output word (so
        the word cancels): it <b>still</b> installs the relation causally,
        <span class="k">${D.desinence.clean.toFixed(1)}</span> →
-       <span class="k">+${D.desinence.desinence.toFixed(1)}</span>. The operation is separable from the word.`
+       <span class="k">+${D.desinence.desinence.toFixed(1)}</span>. The operation is separable from the word.`,
+  ()=>{
+    const v = D.variance[lat.t<0.5?"country":"query"];
+    const F = latF;
+    if(!F) return "";
+    const r = F.resid.toFixed(1);
+    if(lat.perm) return `The <b>same 60 states</b>, relabelled at random. Nothing else changed — and the
+      lattice is gone: mean gap <span class="k">${r}</span>, against
+      <span class="k">~14.9</span> under the true labels. <b>That is the control</b>. This project began
+      with a picture that looked like structure and wasn't (a J-lens path that travelled further in a real
+      concept plane — but travelled further still in 20 random ones). A view that can't show you nothing
+      can't teach you anything. Untick to bring it back.`;
+    const S = F.share;
+    return `<b>The grid is the claim.</b> These lines are
+      <span class="k">μ + stem(country) + case(relation)</span> — the factorization, recomputed live in
+      your browser from the 60 points alone. Every row is a <b>translate</b> of every other, because a sum
+      of two independent parts <i>is</i> a lattice. The white stubs are the <b>interaction</b>: how far
+      each real state falls from what adding the parts predicts (mean <span class="k">${r}</span> here).<br>
+      <b>Now drag toward the query token and watch the lattice die.</b> The stem axis carries
+      <span class="k">${(100*LAT_END.country.share.stem).toFixed(0)}%</span> of the variance in this view
+      at the country token and <span class="k">${(100*LAT_END.query.share.stem).toFixed(1)}%</span> at the
+      query token: the twelve countries collapse into the five relation clusters, and the grid becomes
+      five points. <b>That collapse is the declension</b> — by the time the model is about to answer, the
+      geometry is almost entirely about <i>which question was asked</i>.<br>
+      <b>Trust the numbers over this picture.</b> You are seeing
+      <span class="k">stem ${(100*S.stem).toFixed(0)}% · case ${(100*S.case).toFixed(0)}% ·
+      interaction ${(100*S.inter).toFixed(0)}%</span>; across the full 2048 dimensions the same states are
+      <span class="k">stem ${(100*v.stem).toFixed(0)}% · case ${(100*v.case).toFixed(0)}% ·
+      interaction ${(100*v.interaction).toFixed(0)}%</span>. Two dimensions cannot hold twelve stems and
+      five cases at once, so this projection <b>under-shows</b> the stem and the interaction both — at the
+      country token the stem really <b>overtakes</b> the case (59% vs 31%) and you can't see it here.
+      The picture is the intuition; the measurement is the claim. Now tick <b>permute the labels</b>.`;
+  }
 ];
 function setCap(){ cap.innerHTML = CAPS[scene](); }
 
@@ -365,10 +530,16 @@ document.getElementById("reset1").onclick=()=>{ inj.prog=0; };
 // scene 2
 document.getElementById("des2").onclick=()=>{ des.prog=0; tween(1200,u=>des.prog=u); };
 document.getElementById("reset2").onclick=()=>{ des.prog=0; };
+// scene 3
+const s3el=document.getElementById("s3");
+s3el.oninput=()=>{ lat.t=+s3el.value; };
+document.getElementById("real3").onchange=e=>{ lat.real=e.target.checked; };
+document.getElementById("inter3").onchange=e=>{ lat.inter=e.target.checked; };
+document.getElementById("perm3").onchange=e=>{ lat.perm=e.target.checked; };
 
-// deep-link a scene with #1 / #2 (0 = declension by default)
-const hs = parseInt((location.hash.match(/[0-2]/)||[])[0]);
-if(hs>=0 && hs<=2){ const b=document.querySelector(`.tab[data-scene="${hs}"]`); b&&b.click(); }
+// deep-link a scene with #1 / #2 / #3 (0 = declension by default)
+const hs = parseInt((location.hash.match(/[0-3]/)||[])[0]);
+if(hs>=0 && hs<=3){ const b=document.querySelector(`.tab[data-scene="${hs}"]`); b&&b.click(); }
 
 // query params: ?bare=1 (stage only) and frozen state for frame capture / deep-linking
 const q = new URLSearchParams(location.search);
@@ -377,6 +548,7 @@ const clamp=v=>Math.max(0,Math.min(1,+v));
 if(q.has("t")){ scene=0; s0=clamp(q.get("t")); playing=false; }
 if(q.has("p")){ scene=1; if(q.get("from"))inj.from=q.get("from"); if(q.get("to"))inj.to=q.get("to"); inj.prog=clamp(q.get("p")); }
 if(q.has("des")){ scene=2; des.prog=clamp(q.get("des")); }
+if(q.has("lat")){ scene=3; lat.t=clamp(q.get("lat")); lat.perm=q.get("perm")==="1"; }
 
 resize(); setCap(); requestAnimationFrame(frame);
 </script>
