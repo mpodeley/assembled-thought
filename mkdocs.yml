@@ -70,6 +70,8 @@ plugins:
             The paper: El paper
             What's next: Qué sigue
             Lab notes: Notas de laboratorio
+            Inside the operator vector: Adentro del vector de operador
+            Lesioning the model: Lesionar el modelo
             Code & reproducibility: Código y reproducibilidad
 
 nav:
@@ -81,5 +83,7 @@ nav:
   - Evidence & controls: evidence.md
   - The paper: paper.md
   - What's next: future.md
-  - Lab notes: lab.md
+  - Lab notes:
+      - Inside the operator vector: lab.md
+      - Lesioning the model: lab-lesions.md
   - Code & reproducibility: https://github.com/mpodeley/jspace-qwen
