@@ -2,7 +2,7 @@
 
 *A second follow-up, July 2026 — same rules as the paper: every number recomputable from
 persisted artifacts, every claim next to the control that could kill it. The full narrative,
-in Spanish, is on the [research blog](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/lesionar-un-modelo-de-lenguaje/); the full technical detail is in the
+in Spanish, is on the [research blog](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/17/lesionar-un-modelo-de-lenguaje/); the full technical detail is in the
 [findings notebook, Part 3](https://mpodeley.github.io/jspace-qwen/findings/).*
 
 Neuropsychology learned the brain, in large part, by breaking it: a stroke takes one region and

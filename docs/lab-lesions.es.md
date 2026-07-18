@@ -2,7 +2,7 @@
 
 *Un segundo seguimiento, julio 2026 — mismas reglas que el paper: cada número recomputable desde
 artefactos persistidos, cada claim junto al control que podría matarlo. La narrativa completa
-está en el [blog de investigación](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/lesionar-un-modelo-de-lenguaje/); el detalle técnico completo en el
+está en el [blog de investigación](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/17/lesionar-un-modelo-de-lenguaje/); el detalle técnico completo en el
 [cuaderno de resultados, Parte 3](https://mpodeley.github.io/jspace-qwen/findings/).*
 
 Los neuropsicólogos entendieron el cerebro, en buena parte, rompiéndolo: un ACV se lleva una
