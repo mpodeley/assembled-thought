@@ -719,6 +719,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#the-operand-is-in-the-wiring-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The operand is in the wiring (update)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#fine-print" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -826,7 +837,8 @@ ordered, in both models, with perplexity spared (Fisher-exact p down to 5.5e-09 
 control null). But the operand network has no removable tissue: the predicted "says another
 country's capital" essentially never happens — not at the query position, and not at the entity
 token (the obvious mechanistic guess, tested and refuted). <strong>A factorization symmetric in the
-algebra is not symmetric in the tissue.</strong> It is a paradigm of <em>operators</em>.</p>
+algebra is not symmetric in the tissue.</strong> It is a paradigm of <em>operators</em> — and the operand's
+mechanism stayed open until the follow-up below.</p>
 <p><em>(An honesty note I like to tell: reading the raw generations under the operand lesion, I thought
 I saw a beautiful anomia — "it's a city… I can't say which". The rigorous scoring showed
 "degraded" is the sink every failure falls into (~37% even for controls), so it can't be a
@@ -851,6 +863,25 @@ attention on the first token (a documented load-bearing pattern) — is <strong>
 L19H4 sends 97.4% of its attention to token 0. But the critical heads are not sinks: L1H5 sends
 only <strong>1.3%</strong> (rank 430 of 448). It is load-bearing for some <em>other</em> reason, still unidentified —
 an honest loose end.</p>
+<h2 id="the-operand-is-in-the-wiring-update">The operand is in the wiring (update)</h2>
+<p>Why did lesioning neurons never find the operand? Because a lesion removes <em>stored</em> computation,
+and the entity is not stored at the query position — it is <strong>moved</strong> there, by attention, from the
+entity token. The operand may have no removable tissue for the simple reason that it is a <em>wire</em>,
+not a store. And you cut a wire with an <strong>attention knockout</strong> (Geva et al.,
+<a href="https://arxiv.org/abs/2304.14767">2304.14767</a>): block the query→entity attention edge and see
+what breaks.</p>
+<p>It breaks exactly as predicted. Cutting query→entity attention in a mid-late band (~76% depth at
+1.7B, ~70% at 8B) destroys entity retrieval — dose-dependently in how many layers you cut (1.7B
+accuracy 63% → 36% → 15%) — while the model keeps the <em>relation</em>: "the city of <strong>Rome</strong>" for
+Egypt's capital, "a city that is known for…" for France's. Meanwhile cutting attention to the
+<strong>operator word</strong> ("capital", "currency") is inert (61–80% accuracy, barely moved): the operator
+is not read from its word, it is constructed. entity-vs-operator: Δaccuracy −25% to −48%, McNemar
+p down to 1.3e-07, replicated at 8B.</p>
+<p>So the two halves have <strong>two substrates</strong>: the operator is stored MLP tissue (removable by
+lesion), the operand is attention routing (severed by cutting the wire). The symmetry of the
+algebra does not imply symmetry of the implementation — one factor is a store, the other is a
+wire. <em>Full detail: <a href="https://mpodeley.github.io/jspace-qwen/findings/">findings §3.9</a> and the
+<a href="https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/22/donde-vive-el-operando/">research blog</a>.</em></p>
 <h2 id="fine-print">Fine print</h2>
 <ul>
 <li>One and a half models (Qwen3-1.7B, replicated on 8B), 12 countries, 5 relations, English. The

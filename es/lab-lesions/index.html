@@ -719,6 +719,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#el-operando-vive-en-el-cable-update" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        El operando vive en el cable (update)
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#la-letra-chica" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -826,7 +837,8 @@ tamaños, ordenado por dosis, en los dos modelos, con perplejidad preservada (Fi
 5.5e-09 contra el pool de controles). Pero la red-operando no tiene tejido removible: la
 predicción "dice la capital de otro país" casi nunca ocurre — ni en la consulta ni en el token de
 la entidad (la hipótesis mecánica obvia, testeada y refutada). <strong>Una factorización simétrica en
-el álgebra no es simétrica en el tejido.</strong> Es un paradigma de <em>operadores</em>.</p>
+el álgebra no es simétrica en el tejido.</strong> Es un paradigma de <em>operadores</em> — y el mecanismo del
+operando quedó abierto hasta el seguimiento de abajo.</p>
 <p><em>(Una nota de honestidad que me gusta contar: leyendo las generaciones crudas bajo la lesión de
 operando, creí ver una anomia bellísima — "es una ciudad… no sé cuál". El scoring riguroso mostró
 que "degradado" es el sumidero donde cae toda falla (~37% incluso en los controles), así que no
@@ -850,6 +862,25 @@ puede perder en unas pocas; el grande lo desparrama tanto que ningún grupo chic
 toda su atención al primer token— <strong>es falsa</strong>. Sinks hay: L19H4 manda el 97.4% de su atención al
 token 0. Pero las críticas no son sinks: L1H5 manda solo el <strong>1.3%</strong> (puesto 430 de 448). Es
 intocable por <em>otra</em> razón, todavía sin identificar — un cabo suelto, honesto.</p>
+<h2 id="el-operando-vive-en-el-cable-update">El operando vive en el cable (update)</h2>
+<p>¿Por qué lesionar neuronas nunca encontró el operando? Porque una lesión saca cómputo
+<em>almacenado</em>, y la entidad no se almacena en la posición de la consulta — se <strong>mueve</strong> hasta ahí,
+por atención, desde el token del país. El operando no tiene tejido removible por la razón simple
+de que es un <em>cable</em>, no un archivo. Y un cable se corta con un <strong>attention knockout</strong> (Geva et
+al., <a href="https://arxiv.org/abs/2304.14767">2304.14767</a>): bloquear el edge de atención consulta→entidad
+y ver qué se rompe.</p>
+<p>Se rompe exactamente como se predijo. Cortar la atención consulta→entidad en una banda media-tardía
+(~76% de profundidad en 1.7B, ~70% en 8B) destruye la recuperación de la entidad —dosis-dependiente
+en cuántas capas cortás (precisión 63% → 36% → 15% en 1.7B)— mientras el modelo mantiene la
+<em>relación</em>: "the city of <strong>Rome</strong>" para la capital de Egipto, "a city that is known for…" para la
+de Francia. En cambio cortar la atención a la <strong>palabra-operador</strong> ("capital", "currency") es
+inerte (precisión 61–80%, casi sin moverse): el operador no se lee de su palabra, se construye.
+entidad-vs-operador: Δprecisión −25% a −48%, McNemar p hasta 1.3e-07, replicado en 8B.</p>
+<p>Así que las dos mitades tienen <strong>dos sustratos</strong>: la operación es tejido MLP almacenado (removible
+por lesión), el operando es ruteo por atención (cortable cortando el cable). La simetría del
+álgebra no implica simetría de la implementación — un factor es un archivo, el otro es un cable.
+<em>Detalle completo: <a href="https://mpodeley.github.io/jspace-qwen/findings/">findings §3.9</a> y el
+<a href="https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/22/donde-vive-el-operando/">blog de investigación</a>.</em></p>
 <h2 id="la-letra-chica">La letra chica</h2>
 <ul>
 <li>Un modelo y medio (Qwen3-1.7B, replicado en 8B), 12 países, 5 relaciones, en inglés. El
