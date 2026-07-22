@@ -40,7 +40,8 @@ tamaños, ordenado por dosis, en los dos modelos, con perplejidad preservada (Fi
 5.5e-09 contra el pool de controles). Pero la red-operando no tiene tejido removible: la
 predicción "dice la capital de otro país" casi nunca ocurre — ni en la consulta ni en el token de
 la entidad (la hipótesis mecánica obvia, testeada y refutada). **Una factorización simétrica en
-el álgebra no es simétrica en el tejido.** Es un paradigma de *operadores*.
+el álgebra no es simétrica en el tejido.** Es un paradigma de *operadores* — y el mecanismo del
+operando quedó abierto hasta el seguimiento de abajo.
 
 *(Una nota de honestidad que me gusta contar: leyendo las generaciones crudas bajo la lesión de
 operando, creí ver una anomia bellísima — "es una ciudad… no sé cuál". El scoring riguroso mostró
@@ -70,6 +71,29 @@ puede perder en unas pocas; el grande lo desparrama tanto que ningún grupo chic
 toda su atención al primer token— **es falsa**. Sinks hay: L19H4 manda el 97.4% de su atención al
 token 0. Pero las críticas no son sinks: L1H5 manda solo el **1.3%** (puesto 430 de 448). Es
 intocable por *otra* razón, todavía sin identificar — un cabo suelto, honesto.
+
+## El operando vive en el cable (update)
+
+¿Por qué lesionar neuronas nunca encontró el operando? Porque una lesión saca cómputo
+*almacenado*, y la entidad no se almacena en la posición de la consulta — se **mueve** hasta ahí,
+por atención, desde el token del país. El operando no tiene tejido removible por la razón simple
+de que es un *cable*, no un archivo. Y un cable se corta con un **attention knockout** (Geva et
+al., [2304.14767](https://arxiv.org/abs/2304.14767)): bloquear el edge de atención consulta→entidad
+y ver qué se rompe.
+
+Se rompe exactamente como se predijo. Cortar la atención consulta→entidad en una banda media-tardía
+(~76% de profundidad en 1.7B, ~70% en 8B) destruye la recuperación de la entidad —dosis-dependiente
+en cuántas capas cortás (precisión 63% → 36% → 15% en 1.7B)— mientras el modelo mantiene la
+*relación*: "the city of **Rome**" para la capital de Egipto, "a city that is known for…" para la
+de Francia. En cambio cortar la atención a la **palabra-operador** ("capital", "currency") es
+inerte (precisión 61–80%, casi sin moverse): el operador no se lee de su palabra, se construye.
+entidad-vs-operador: Δprecisión −25% a −48%, McNemar p hasta 1.3e-07, replicado en 8B.
+
+Así que las dos mitades tienen **dos sustratos**: la operación es tejido MLP almacenado (removible
+por lesión), el operando es ruteo por atención (cortable cortando el cable). La simetría del
+álgebra no implica simetría de la implementación — un factor es un archivo, el otro es un cable.
+*Detalle completo: [findings §3.9](https://mpodeley.github.io/jspace-qwen/findings/) y el
+[blog de investigación](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/22/donde-vive-el-operando/).*
 
 ## La letra chica
 

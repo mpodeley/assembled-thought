@@ -40,7 +40,8 @@ ordered, in both models, with perplexity spared (Fisher-exact p down to 5.5e-09 
 control null). But the operand network has no removable tissue: the predicted "says another
 country's capital" essentially never happens — not at the query position, and not at the entity
 token (the obvious mechanistic guess, tested and refuted). **A factorization symmetric in the
-algebra is not symmetric in the tissue.** It is a paradigm of *operators*.
+algebra is not symmetric in the tissue.** It is a paradigm of *operators* — and the operand's
+mechanism stayed open until the follow-up below.
 
 *(An honesty note I like to tell: reading the raw generations under the operand lesion, I thought
 I saw a beautiful anomia — "it's a city… I can't say which". The rigorous scoring showed
@@ -71,6 +72,29 @@ attention on the first token (a documented load-bearing pattern) — is **wrong*
 L19H4 sends 97.4% of its attention to token 0. But the critical heads are not sinks: L1H5 sends
 only **1.3%** (rank 430 of 448). It is load-bearing for some *other* reason, still unidentified —
 an honest loose end.
+
+## The operand is in the wiring (update)
+
+Why did lesioning neurons never find the operand? Because a lesion removes *stored* computation,
+and the entity is not stored at the query position — it is **moved** there, by attention, from the
+entity token. The operand may have no removable tissue for the simple reason that it is a *wire*,
+not a store. And you cut a wire with an **attention knockout** (Geva et al.,
+[2304.14767](https://arxiv.org/abs/2304.14767)): block the query→entity attention edge and see
+what breaks.
+
+It breaks exactly as predicted. Cutting query→entity attention in a mid-late band (~76% depth at
+1.7B, ~70% at 8B) destroys entity retrieval — dose-dependently in how many layers you cut (1.7B
+accuracy 63% → 36% → 15%) — while the model keeps the *relation*: "the city of **Rome**" for
+Egypt's capital, "a city that is known for…" for France's. Meanwhile cutting attention to the
+**operator word** ("capital", "currency") is inert (61–80% accuracy, barely moved): the operator
+is not read from its word, it is constructed. entity-vs-operator: Δaccuracy −25% to −48%, McNemar
+p down to 1.3e-07, replicated at 8B.
+
+So the two halves have **two substrates**: the operator is stored MLP tissue (removable by
+lesion), the operand is attention routing (severed by cutting the wire). The symmetry of the
+algebra does not imply symmetry of the implementation — one factor is a store, the other is a
+wire. *Full detail: [findings §3.9](https://mpodeley.github.io/jspace-qwen/findings/) and the
+[research blog](https://mpodeley.github.io/interpretabilidad-mecanicista/blog/2026/07/22/donde-vive-el-operando/).*
 
 ## Fine print
 
